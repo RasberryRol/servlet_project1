@@ -6,31 +6,43 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>${error}</h1>
-    <form method="post" action="/register">
+<div class="form-container">
+    <h2>${error}</h2>
+    <form action="/register" method="POST">
+                    <div class="form-group">
+                        <label for="principalAmount">Principal Amount:</label>
+                        <input type="number" id="principalAmount" name="principalAmount" value=${user.principalAmount}><br><br>
+                    </div>
 
-            <label for="principalAmount">Principal Amount:</label>
-            <input type="number" id="principalAmount" name="principalAmount"><br><br>
+                    <div class="form-group">
+                        <label for="interestRate">Interest Rate (%):</label>
+                        <input type="number" id="interestRate" name="interestRate" value=${user.interestRate}><br><br>
+                    </div>
 
-            <label for="interestRate">Interest Rate (%):</label>
-            <input type="number" id="interestRate" name="interestRate"><br><br>
+                    <div class="form-group">
+                        <label for="time">Time (years)</label>
+                        <input type="number" id="time" name="time" value=${user.time}><br><br>
+                    </div>
 
-            <label for="time">Time (years)</label>
-            <input type="number" id="time" name="time"><br><br>
+                    <div class="form-group">
+                        <label for="compoundNumber">Number of Times/Year(to compound the interest)</label>
+                        <input type="number" id="compoundNumber" name="compoundNumber" value=${user.compoundNumber}><br><br>
+                    </div>
+                    <button type="submit">Calculate</button>
+                </form>
 
-            <label for="compoundNumber">Number of Times/Year(to compound the interest)</label>
-            <input type="number" id="compoundNumber" name="compoundNumber"><br><br>
+                <p>
+                    ${principalAmount}
+                </p>
 
-            <button type="submit">Calculate</button>
-    </form>
-
-    <p>
-        ${principalAmount}
-    </p>
-</body>
-</html>
+            </div>
+            </body>
+            </html>

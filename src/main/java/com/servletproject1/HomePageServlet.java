@@ -10,34 +10,39 @@ import java.text.DecimalFormat;
 
 @WebServlet(name = "HomePageServlet", value = "/register")
 public class HomePageServlet extends HttpServlet {
-    TO BE DONE: -ADD CODE FOR 500 SERVER STATUS CODE WHEN THE FIELDS ARE EMPTY
-                -FINISH LAST PART OF THE PROJECT'S RECOMENDATION
+
+
+
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String pAmount = req.getParameter("principalAmount");
+            String intRate = req.getParameter("interestRate");
+            String timeYear = req.getParameter("time");
+            String compNumber = req.getParameter("compoundNumber");
 
-        User user = new User(Integer.parseInt(req.getParameter("principalAmount"))
-                                    ,Integer.parseInt(req.getParameter("interestRate"))
-                                    ,Integer.parseInt(req.getParameter("time"))
-                                    ,Integer.parseInt(req.getParameter("compoundNumber")));
 
-        if(req.getParameter("principalAmount") == null || req.getParameter("interestRate") == null ||
-            req.getParameter("time") == null || req.getParameter("compoundNumber") == null){
-            req.setAttribute("error", "Your are missing one of the inputs!");
-            doGet(req, resp);
-            throw new NumberFormatException("Input fields cannot be blank!");
-        }else{
-            double principal = user.getPrincipalAmount();
-            double interest = user.getInterestRate()/100;
-            int time = user.getTime();
-            int compound = user.getCompoundNumber();
+            if(pAmount.isBlank() || intRate.isBlank() || timeYear.isBlank() || compNumber.isBlank()){
+                StringBuilder error = new StringBuilder();
+                error.append("One or more field is empty. Try again!");
+                req.setAttribute("error", error);
+                req.setAttribute("user", new User(pAmount, intRate, timeYear, compNumber));
+                doGet(req, resp);
+            } else{
+                double principal = Integer.parseInt(pAmount);
+                double interestRate = Integer.parseInt(intRate);
+                double time = Integer.parseInt(timeYear);
+                double compoundNumber = Integer.parseInt(compNumber);
 
-            double interestOverCompound = interest/compound;
-            int compoundByTime = compound * time;
-            double exponentByParen = Math.pow((1+interestOverCompound), compoundByTime);
 
-            double amount = principal * exponentByParen;
-            req.setAttribute("principalAmount", "The result is: " + df.format(amount));
+                double interestCalc = interestRate/100;
+
+                double interestOverCompound = interestCalc/compoundNumber;
+                double compoundByTime = compoundNumber * time;
+                double exponentByParen = Math.pow((1+interestOverCompound), compoundByTime);
+
+                double amount = principal * exponentByParen;
+                req.setAttribute("principalAmount", "The result is: " + df.format(amount));
         }
 
         doGet(req, resp);
