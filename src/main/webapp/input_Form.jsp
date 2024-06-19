@@ -24,17 +24,17 @@
 
                     <div class="form-group">
                         <label for="interestRate">Interest Rate (%):</label>
-                        <input type="number" id="interestRate" name="interestRate" value=${user.interestRate}><br><br>
+                        <input min="1" max="100" type="number" id="interestRate" name="interestRate" value=${user.interestRate}><br><br>
                     </div>
 
                     <div class="form-group">
                         <label for="time">Time (years)</label>
-                        <input type="number" id="time" name="time" value=${user.time}><br><br>
+                        <input min="1" type="number" id="time" name="time" value=${user.time}><br><br>
                     </div>
 
                     <div class="form-group">
                         <label for="compoundNumber">Number of Times/Year(to compound the interest)</label>
-                        <input type="number" id="compoundNumber" name="compoundNumber" value=${user.compoundNumber}><br><br>
+                        <input min="1" max="12" type="number" id="compoundNumber" name="compoundNumber" value=${user.compoundNumber}><br><br>
                     </div>
                     <button type="submit">Calculate</button>
                 </form>
